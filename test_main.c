@@ -13,8 +13,26 @@ typedef	struct s_vars
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		window_width;
+	int		window_height;
+	double	x0;
+	double	x1;
+	double	y0;
+	double	y1;
 }				t_vars;
 
+void	init_list(t_vars *vars)
+{
+	double	cx = 0.001643721971153;
+	double	cy = 0.822467633298876;
+	vars->x0 = cx - 0.0001;
+	vars->x1 = cx + 0.0001;
+	vars->y0 = cy - 0.0001;
+	vars->y1 = cy + 0.0001;
+
+	vars->window_width = 200 * 4;
+	vars->window_height = 200 * 4;
+}
 
 int		palette(int	iter, int max_iter)
 {
@@ -116,43 +134,44 @@ int	mouse_pars(int button, int x, int y, t_vars *vars)
 		zoom_out(x, y, &vars);*/
 }
 
-int main()
+void	pain_ting(t_vars *vars)
 {
-    int		yp;
-    int		xp;
+	int	yp;
+	int	xp;
 	double	xs;
 	double	ys;
-	double	cx = 0.001643721971153;
-	double	cy = 0.822467633298876;
-	double	x0 = cx - 0.0001;
-	double	x1 = cx + 0.0001;
-	double	y0 = cy - 0.0001;
-	double	y1 = cy + 0.0001;
-	int a, b;
-	a = 200 * 4;
-	b = 200 * 4;
+	int	color;
+
 	xp = 0;
-	yp = 0;
-	t_vars		vars;
-    
-	vars.mlx_pnt = mlx_init();
-    vars.window_pnt = mlx_new_window(vars.mlx_pnt, a, b, "test");
-    vars.img = mlx_new_image(vars.mlx_pnt, a, b);
-	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
-	while (xp <= a)
+	while (xp <= vars->window_width)
 	{
 		yp = 0;
-		while (yp <= b)
+		while (yp <= vars->window_height)
 		{
-			xs = ((x1 - x0) / a) * xp + x0;
-			ys = ((y1 - y0) / b) * (-yp) + y1;
-			int	color = Mandelbrot(xs, ys);
-			my_mlx_pixel_put(&vars, xp, yp, color);
+			xs = ((vars->x1 - vars->x0) / vars->window_width) * xp + vars->x0;
+			ys = ((vars->y1 - vars->y0) / vars->window_height) * (-yp) + vars->y1;
+			color = Mandelbrot(xs, ys);
+			printf("xp: %d, yp %d\n", xp, yp);
+			my_mlx_pixel_put(vars, xp, yp, color);
 			yp++;
 		}
 		xp++;
 	}
-	mlx_put_image_to_window(vars.mlx_pnt, vars.window_pnt, vars.img, 0, 0);
+	mlx_put_image_to_window(vars->mlx_pnt, vars->window_pnt, vars->img, 0, 0);
+}
+
+int main()
+{
+	t_vars		vars;
+
+	init_list(&vars);
+
+	vars.mlx_pnt = mlx_init();
+    vars.window_pnt = mlx_new_window(vars.mlx_pnt, vars.window_width, vars.window_height, "test");
+    vars.img = mlx_new_image(vars.mlx_pnt, vars.window_width, vars.window_height);
+	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
+	pain_ting(&vars);
+	//mlx_put_image_to_window(vars.mlx_pnt, vars.window_pnt, vars.img, 0, 0);
 	mlx_key_hook(vars.window_pnt, button_pars, &vars);
 	mlx_mouse_hook(vars.window_pnt, mouse_pars, &vars);
 	mlx_loop(vars.mlx_pnt);
