@@ -21,6 +21,12 @@ typedef	struct s_vars
 	double	y1;
 }				t_vars;
 
+typedef struct s_complex
+{
+	double	x;
+	double	y;
+}				t_complex;
+
 void	init_list(t_vars *vars)
 {
 	double	cx = 0.001643721971153;
@@ -111,21 +117,6 @@ int	close(t_vars *vars)
 	exit(0);
 }
 
-int	button_pars(int keycode, t_vars *vars)
-{
-	if (keycode == 65307)
-		close(vars);
-	/*else if (keycode == 65361)
-		move_left();
-	else if (keycode == 65362)
-		move_up();
-	else if (keycode == 65363)
-		move_right();
-	else if (keycode == 65364)
-		move_down();
-	*/	
-}
-
 void	pain_ting(t_vars *vars)
 {
 	int	yp;
@@ -177,6 +168,60 @@ void	zoom_out(int x, int y, t_vars *vars)
 	vars->y1 += y_length * 0.05;
 	vars->y0 -= y_length * 0.05;
 	pain_ting(vars);
+}
+
+void	move_left(t_vars *vars)
+{
+	double	x_length;
+
+	x_length = vars->x1 - vars->x0;
+	vars->x1 -= x_length * 0.05;
+	vars->x0 -= x_length * 0.05;
+	pain_ting(vars);
+}
+
+void	move_up(t_vars *vars)
+{
+	double	y_length;
+
+	y_length = vars->y1 - vars->y0;
+	vars->y1 += y_length * 0.05;
+	vars->y0 += y_length * 0.05;
+	pain_ting(vars);
+}
+
+void	move_right(t_vars *vars)
+{
+	double	x_length;
+
+	x_length = vars->x1 - vars->x0;
+	vars->x1 += x_length * 0.05;
+	vars->x0 += x_length * 0.05;
+	pain_ting(vars);
+}
+
+void	move_down(t_vars *vars)
+{
+	double	y_length;
+
+	y_length = vars->y1 - vars->y0;
+	vars->y1 -= y_length * 0.05;
+	vars->y0 -= y_length * 0.05;
+	pain_ting(vars);
+}
+
+int	button_pars(int keycode, t_vars *vars)
+{
+	if (keycode == 65307)
+		close(vars);
+	else if (keycode == 65361)
+		move_left(vars);
+	else if (keycode == 65362)
+		move_up(vars);
+	else if (keycode == 65363)
+		move_right(vars);
+	else if (keycode == 65364)
+		move_down(vars);
 }
 
 int	mouse_pars(int button, int x, int y, t_vars *vars)
