@@ -126,14 +126,6 @@ int	button_pars(int keycode, t_vars *vars)
 	*/	
 }
 
-int	mouse_pars(int button, int x, int y, t_vars *vars)
-{
-	/*if (button == 4)
-		zoom_in(x, y, &vars);
-	else if (button == 5)
-		zoom_out(x, y, &vars);*/
-}
-
 void	pain_ting(t_vars *vars)
 {
 	int	yp;
@@ -151,13 +143,48 @@ void	pain_ting(t_vars *vars)
 			xs = ((vars->x1 - vars->x0) / vars->window_width) * xp + vars->x0;
 			ys = ((vars->y1 - vars->y0) / vars->window_height) * (-yp) + vars->y1;
 			color = Mandelbrot(xs, ys);
-			printf("xp: %d, yp %d\n", xp, yp);
 			my_mlx_pixel_put(vars, xp, yp, color);
 			yp++;
 		}
 		xp++;
 	}
 	mlx_put_image_to_window(vars->mlx_pnt, vars->window_pnt, vars->img, 0, 0);
+}
+
+void	zoom_in(int x, int y, t_vars *vars)
+{
+	double	x_length;
+	double	y_length;
+
+	x_length = vars->x1 - vars->x0;
+	y_length = vars->y1 - vars->y0;
+	vars->x1 -= x_length * 0.05;
+	vars->x0 += x_length * 0.05;
+	vars->y1 -= y_length * 0.05;
+	vars->y0 += y_length * 0.05;
+	pain_ting(vars);
+}
+
+void	zoom_out(int x, int y, t_vars *vars)
+{
+	double	x_length;
+	double	y_length;
+
+	x_length = vars->x1 - vars->x0;
+	y_length = vars->y1 - vars->y0;
+	vars->x1 += x_length * 0.05;
+	vars->x0 -= x_length * 0.05;
+	vars->y1 += y_length * 0.05;
+	vars->y0 -= y_length * 0.05;
+	pain_ting(vars);
+}
+
+int	mouse_pars(int button, int x, int y, t_vars *vars)
+{
+	if (button == 4)
+		zoom_in(x, y, vars);
+	else if (button == 5)
+		zoom_out(x, y, vars);
 }
 
 int main()
