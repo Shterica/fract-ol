@@ -58,45 +58,53 @@ double	lin_inter(double c1, double c2, double i)
 	return (c1 + i * (c2 - c1));
 }
 
-int		Mandelbrot(double x0, double y0)
+int		Mandelbrot(t_complex c)
 {
-	double	x;
-	double	y;
-	double xtemp;
+	t_complex z;
+	t_complex zsq;
+	t_complex der;
+	t_complex new_der;
 	int i;
 	int max_i;
 	int color;
 	int	color1;
 	int	color2;
-	double	x2;
-	double	y2;
 	double	log_zn;
 	double	nu;
 
-	x = 0.;
-	y = 0.;
-	x2 = 0.;
-	y2 = 0.;
+	z = c;
+	zsq.x = z.x * z.x;
+	zsq.y = z.y * z.y;
+	der.x = 1;
+	der.y = 0;
 	i = 0;
 	max_i = 10000;
-	while (x2 + y2 <= (1 << 16) && i < max_i)
+	color = 0x0;
+	while (i < max_i)
 	{
-		y = (x + x) * y + y0;
-		x = x2 - y2 + x0;
-		x2 = x * x;
-		y2 = y * y;
+		if (der.x * der.x + der.y * der.y < 0.001)
+		{
+			color = 0x0;
+			break ;
+		}
+		else if (zsq.x + zsq.y > (1 << 16))
+		{
+			log_zn = log(zsq.x + zsq.y) / 2;
+			nu = log(log_zn / log(2)) / log(2);
+			color1 = palette(i, max_i);
+			color2 = palette(i + 1, max_i);
+			color = lin_inter(color1, color2, fmod(i + 1 - nu, 1));
+			break ;
+		}
+		new_der.x = 2 * (z.x * der.x - z.y * der.y);
+		new_der.y = 2 * (z.x * der.y + z.y * der.x);
+		der = new_der;
+		z.y = (z.x + z.x) * z.y + c.y;
+		z.x = zsq.x - zsq.y + c.x;
+		zsq.x = z.x * z.x;
+		zsq.y = z.y * z.y;
 		i++;
 	}
-	if (i < max_i)
-	{
-		log_zn = log(x * x + y * y) / 2;
-		nu = log(log_zn / log(2)) / log(2);
-	}
-	else
-		return (0x0);
-	color1 = palette(i, max_i);
-	color2 = palette(i + 1, max_i);
-	color = lin_inter(color1, color2, fmod(i + 1 - nu, 1));
 	return (color);
 }
 
@@ -121,19 +129,18 @@ void	pain_ting(t_vars *vars)
 {
 	int	yp;
 	int	xp;
-	double	xs;
-	double	ys;
 	int	color;
+	t_complex	c;
 
 	xp = 0;
-	while (xp <= vars->window_width)
+	while (xp < vars->window_width)
 	{
 		yp = 0;
-		while (yp <= vars->window_height)
+		while (yp < vars->window_height)
 		{
-			xs = ((vars->x1 - vars->x0) / vars->window_width) * xp + vars->x0;
-			ys = ((vars->y1 - vars->y0) / vars->window_height) * (-yp) + vars->y1;
-			color = Mandelbrot(xs, ys);
+			c.x = ((vars->x1 - vars->x0) / vars->window_width) * xp + vars->x0;
+			c.y = ((vars->y1 - vars->y0) / vars->window_height) * (-yp) + vars->y1;
+			color = Mandelbrot(c);
 			my_mlx_pixel_put(vars, xp, yp, color);
 			yp++;
 		}
