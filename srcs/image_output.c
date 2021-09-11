@@ -16,6 +16,8 @@ void	pain_ting(t_vars *vars)
 	t_complex	c;
 
 	xp = 0;
+	//vars->img = mlx_new_image(vars->mlx_pnt, vars->window_width, vars->window_height);
+	//vars->addr = mlx_get_data_addr(vars->img, vars->bits_per_pixel, vars->line_length, vars->endian);
 	while (xp < vars->window_width)
 	{
 		yp = 0;

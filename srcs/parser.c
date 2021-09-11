@@ -1,17 +1,18 @@
 #include "fractol.h"
+#include "keys.h"
 
 int	button_pars(int keycode, t_vars *vars)
 {
 	printf("%d\n", keycode);
-	if (keycode == 65307)
+	if (keycode == K_ESC)
 		close(vars);
-	else if (keycode == 65361)
+	else if (keycode == K_LEFT_ARROW)
 		move_left(vars);
-	else if (keycode == 65362)
+	else if (keycode == K_UP_ARROW)
 		move_up(vars);
-	else if (keycode == 65363)
+	else if (keycode == K_RIGHT_ARROW)
 		move_right(vars);
-	else if (keycode == 65364)
+	else if (keycode == K_DOWN_ARROW)
 		move_down(vars);
 	return (0);
 }
