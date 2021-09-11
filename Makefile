@@ -27,7 +27,7 @@ ifeq ($(OS), Linux)
 	MLX			= ./mlx_linux
 	MLX_FLAGS = -L $(MLX) -l mlx -lXext -lX11
 else
-	MLX			= ./mlx_linux
+	MLX			= ./mlx
 	MLX_FLAGS = -L $(MLX) -l mlx -framework OpenGL -framework AppKit
 endif
 
@@ -48,7 +48,9 @@ mlxmake:
 
 clean: 
 	rm -rf $(OBJS)
+	make -C $(MLX) clean
 
 fclean: clean
+	rm -rf $(NAME)
 
 re: fclean all
