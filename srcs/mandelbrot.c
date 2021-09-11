@@ -20,7 +20,7 @@ int		Mandelbrot(t_complex c)
 	der.x = 1;
 	der.y = 0;
 	i = 0;
-	max_i = 15000;
+	max_i = 5000;
 	color = 0x0;
 	while (i < max_i)
 	{

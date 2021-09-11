@@ -1,10 +1,10 @@
 NAME		= fractol
 
+OS			= $(shell uname)
+
 SRCS_PATH	= srcs/
 
-HEADERS		= -I includes/ -I/usr/local/include -I/usr/include
-
-MLX_PATH	= mlx_linux/
+HEADERS		= -I ./includes
 
 SRCS_FILES	= arrows.c \
 				color.c \
@@ -23,22 +23,31 @@ OBJS		:= $(SRCS:.c=.o)
 
 CC			= gcc
 
+ifeq ($(OS), Linux)
+	MLX			= ./mlx_linux
+	MLX_FLAGS = -L $(MLX) -l mlx -lXext -lX11
+else
+	MLX			= ./mlx_linux
+	MLX_FLAGS = -L $(MLX) -l mlx -framework OpenGL -framework AppKit
+endif
+
+MLX_INC			= -I $(MLX)
+
 CFLAGS		= -Wall -Werror -Wextra
-LIBFLAGS	= -L/usr/local/lib -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 	
-$(NAME): $(OBJS) mlxmake
-	$(CC) $(OBJS) -L ./mlx_linux/ -l mlx -lXext -lX11 -lm -o $(NAME)
+$(NAME): $(OBJS) 
+	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
 
-$(SRCS_PATH)%.o: $(SRCS_PATH)%.c
-	$(CC) $(CFLAGS) -L ./mlx_linux/ -l mlx -lXext -lX11 -I ./includes/ -o $@ -c $<
+$(SRCS_PATH)%.o: $(SRCS_PATH)%.c mlxmake
+	$(CC) $(CFLAGS) $(MLX_INC) $(HEADERS) -o $@ -c $<
 
 mlxmake:
-	make -C $(MLX_PATH)
+	make -C $(MLX)
 
 clean: 
-		rm -rf $(OBJS)
+	rm -rf $(OBJS)
 
 fclean: clean
 

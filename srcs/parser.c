@@ -2,6 +2,7 @@
 
 int	button_pars(int keycode, t_vars *vars)
 {
+	printf("%d\n", keycode);
 	if (keycode == 65307)
 		close(vars);
 	else if (keycode == 65361)
@@ -17,6 +18,7 @@ int	button_pars(int keycode, t_vars *vars)
 
 int	mouse_pars(int button, int x, int y, t_vars *vars)
 {
+	printf("%d\n", button);
 	if (button == 4)
 		zoom_in(x, y, vars);
 	else if (button == 5)
