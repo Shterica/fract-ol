@@ -10,14 +10,12 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 
 void	pain_ting(t_vars *vars)
 {
-	int	yp;
-	int	xp;
-	int	color;
+	int			yp;
+	int			xp;
+	int			color;
 	t_complex	c;
 
 	xp = 0;
-	//vars->img = mlx_new_image(vars->mlx_pnt, vars->window_width, vars->window_height);
-	//vars->addr = mlx_get_data_addr(vars->img, vars->bits_per_pixel, vars->line_length, vars->endian);
 	while (xp < vars->window_width)
 	{
 		yp = 0;
