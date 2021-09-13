@@ -4,7 +4,7 @@
 int	button_pars(int keycode, t_vars *vars)
 {
 	if (keycode == K_ESC)
-		close(vars);
+		closing(vars);
 	else if (keycode == K_LEFT_ARROW)
 		move_left(vars);
 	else if (keycode == K_UP_ARROW)

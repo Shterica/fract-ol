@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int	close(t_vars *vars)
+int	closing(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx_pnt, vars->img);
 	mlx_destroy_window(vars->mlx_pnt, vars->window_pnt);

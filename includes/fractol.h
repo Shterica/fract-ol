@@ -75,7 +75,7 @@ double	lin_inter(double c1, double c2, double i);
 int		Mandelbrot(t_complex c);
 
 /* handling various events | events.c */
-int	close(t_vars *vars);
+int	closing(t_vars *vars);
 
 /* painting and output of a fractal image | image_output.c */
 void	pain_ting(t_vars *vars);
