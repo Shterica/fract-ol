@@ -8,6 +8,22 @@
 # include <stdlib.h>
 
 /*
+	Structure s_complex
+	-------------------
+	Stores complex number
+
+	x				real part of a complex number
+	y				imaginary part of a complex number
+
+*/
+
+typedef struct s_complex
+{
+	double	x;
+	double	y;
+}				t_complex;
+
+/*
 	Structure s_vars
 	----------------
 	Stores variables needed for mlx functions and 
@@ -34,45 +50,44 @@ typedef	struct s_vars
 {
 	void	*mlx_pnt;
 	void	*window_pnt;
+	int		window_width;
+	int		window_height;
+	
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		window_width;
-	int		window_height;
+	
 	double	x0;
 	double	x1;
 	double	y0;
 	double	y1;
+	
+	t_complex z;
+	t_complex c;
+	t_complex der;
+	int		i;
+	int		max_i;
 }				t_vars;
-
-/*
-	Structure s_complex
-	-------------------
-	Stores complex number
-
-	x				real part of a complex number
-	y				imaginary part of a complex number
-
-*/
-
-typedef struct s_complex
-{
-	double	x;
-	double	y;
-}				t_complex;
 
 /* s_vars initialization with window params
 	and visible area params | list_init.c */
 void	init_list(t_vars *vars);
 
-/* creating a color palette for coloring | color.c */
+/* utilities for complex numbers | complex_utils.c */
+t_complex	complex(double x, double y);
+double		sqr_modul(t_complex c);
+
+/* creating a palette for coloring | color.c */
 int		palette(int	iter, int max_iter);
 double	lin_inter(double c1, double c2, double i);
 
 /* pixel color computation for Mandelbrot fractal | mandelbrot.c */
-int		Mandelbrot(t_complex c);
+int		mandelbrot(t_vars *vars);
+
+/* pixel color computation for Julia fractal | julia.c */
+int		julia(t_complex z, t_complex c);
 
 /* handling various events | events.c */
 int	closing(t_vars *vars);

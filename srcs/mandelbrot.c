@@ -1,51 +1,62 @@
 #include "fractol.h"
 
-int		Mandelbrot(t_complex c)
+static void	next_der_mandel(t_vars *vars)
 {
-	t_complex z;
-	t_complex zsq;
-	t_complex der;
 	t_complex new_der;
-	int i;
-	int max_i;
-	int color;
-	int	color1;
-	int	color2;
+
+	new_der.x = 2 * (vars->z.x * vars->der.x - vars->z.y * vars->der.y);
+	new_der.y = 2 * (vars->z.x * vars->der.y + vars->z.y * vars->der.x);
+	vars->der = new_der;
+}
+
+static void	next_z_mandel(t_vars *vars)
+{
+	t_complex	z;
+	t_complex	new_z;
+	t_complex	c;
+
+	z = vars->z;
+	c = vars->c;
+	new_z.y = (z.x + z.x) * z.y + c.y;
+	new_z.x = z.x * z.x - z.y * z.y + c.x;
+	vars->z = new_z;
+}
+
+static int	smooth_color(t_vars *vars)
+{
 	double	log_zn;
 	double	nu;
+	int	color1;
+	int	color2;
+	
+	log_zn = log(sqr_modul(vars->z)) / 2;
+	nu = log(log_zn / log(2)) / log(2);
+	color1 = palette(vars->i, vars->max_i);
+	color2 = palette(vars->i + 1, vars->max_i);
+	return (lin_inter(color1, color2, fmod(vars->i + 1 - nu, 1)));
+}
 
-	z = c;
-	zsq.x = z.x * z.x;
-	zsq.y = z.y * z.y;
-	der.x = 1;
-	der.y = 0;
-	i = 0;
-	max_i = 15000;
+int		mandelbrot(t_vars *vars)
+{
+	int color;
+	
+	vars->z = vars->c;
+	vars->der = complex(1, 0);
+	vars->i = 0;
+	vars->max_i = 15000;
 	color = 0x0;
-	while (i < max_i)
+	while (vars->i < vars->max_i)
 	{
-		if (der.x * der.x + der.y * der.y < 0.001)
+		if (sqr_modul(vars->der) < 0.002)
+			break ;
+		else if (sqr_modul(vars->z) > (1 << 16))
 		{
-			color = 0x0;
+			color = smooth_color(vars);
 			break ;
 		}
-		else if (zsq.x + zsq.y > (1 << 16))
-		{
-			log_zn = log(zsq.x + zsq.y) / 2;
-			nu = log(log_zn / log(2)) / log(2);
-			color1 = palette(i, max_i);
-			color2 = palette(i + 1, max_i);
-			color = lin_inter(color1, color2, fmod(i + 1 - nu, 1));
-			break ;
-		}
-		new_der.x = 2 * (z.x * der.x - z.y * der.y);
-		new_der.y = 2 * (z.x * der.y + z.y * der.x);
-		der = new_der;
-		z.y = (z.x + z.x) * z.y + c.y;
-		z.x = zsq.x - zsq.y + c.x;
-		zsq.x = z.x * z.x;
-		zsq.y = z.y * z.y;
-		i++;
+		next_der_mandel(vars);
+		next_z_mandel(vars);
+		vars->i++;
 	}
 	return (color);
 }

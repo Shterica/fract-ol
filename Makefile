@@ -14,7 +14,9 @@ SRCS_FILES	= arrows.c \
 				list_utils.c \
 				main.c \
 				mandelbrot.c \
+				julia.c \
 				parser.c \
+				complex_utils.c \
 				zoom.c
 
 SRCS 		= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
