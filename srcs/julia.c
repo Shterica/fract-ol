@@ -1,27 +1,31 @@
 #include "fractol.h"
 
-int		julia(t_complex z, t_complex c)
+int		julia(t_vars *vars)
 {
-	int			i;
-	int			i_max;
-	t_complex	zsq;
-	double		xtemp;
+	int		color;
+	int		pow;
+	double	V;
 
-	i = 0;
-	i_max = 10000;
-	zsq.x = z.x * z.x;
-	zsq.y = z.y * z.y;
-	while (zsq.x + zsq.y < 16 && i < i_max)
+	vars->i = 0;
+	vars->max_i = 15000;
+	vars->der = complex(1, 0);
+	color = 0x0;
+	pow = 1;
+	while (vars->i < vars->max_i)
 	{
-		xtemp = zsq.x - zsq.y;
-		z.y = 2 * z.x * z.y + c.y;
-		z.x = xtemp + c.x;
-		zsq.x = z.x * z.x;
-		zsq.y = z.y * z.y;
-		i++;
+		if (sqr_modul(vars->der) < 0.0002)
+			break ;
+		if (sqr_modul(vars->z) > (1 << 16))
+		{
+			//color = smooth_color(vars);
+			V = log(sqr_modul(vars->z)) / pow;
+			color = lin_inter(0x000000FF, 0x00FF0000, V);
+			break ;
+		}
+		next_der(vars);
+		next_z(vars);
+		pow *= 2;
+		vars->i++;
 	}
-	if (i == i_max)
-		return (0x0);
-	else
-		return (i_max - i);
+	return (color);
 }

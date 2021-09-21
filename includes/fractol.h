@@ -84,10 +84,13 @@ int		palette(int	iter, int max_iter);
 double	lin_inter(double c1, double c2, double i);
 
 /* pixel color computation for Mandelbrot fractal | mandelbrot.c */
+void	next_der(t_vars *vars);
+void	next_z(t_vars *vars);
+int		smooth_color(t_vars *vars);
 int		mandelbrot(t_vars *vars);
 
 /* pixel color computation for Julia fractal | julia.c */
-int		julia(t_complex z, t_complex c);
+int		julia(t_vars *vars);
 
 /* handling various events | events.c */
 int	closing(t_vars *vars);

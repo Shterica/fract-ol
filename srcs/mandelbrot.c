@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-static void	next_der_mandel(t_vars *vars)
+void	next_der(t_vars *vars)
 {
 	t_complex new_der;
 
@@ -9,7 +9,7 @@ static void	next_der_mandel(t_vars *vars)
 	vars->der = new_der;
 }
 
-static void	next_z_mandel(t_vars *vars)
+void	next_z(t_vars *vars)
 {
 	t_complex	z;
 	t_complex	new_z;
@@ -22,7 +22,7 @@ static void	next_z_mandel(t_vars *vars)
 	vars->z = new_z;
 }
 
-static int	smooth_color(t_vars *vars)
+int	smooth_color(t_vars *vars)
 {
 	double	log_zn;
 	double	nu;
@@ -42,7 +42,7 @@ int		mandelbrot(t_vars *vars)
 	
 	vars->z = vars->c;
 	vars->der = complex(1, 0);
-	vars->i = 0;
+	vars->i = 1;
 	vars->max_i = 15000;
 	color = 0x0;
 	while (vars->i < vars->max_i)
@@ -54,8 +54,8 @@ int		mandelbrot(t_vars *vars)
 			color = smooth_color(vars);
 			break ;
 		}
-		next_der_mandel(vars);
-		next_z_mandel(vars);
+		next_der(vars);
+		next_z(vars);
 		vars->i++;
 	}
 	return (color);

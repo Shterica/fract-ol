@@ -15,9 +15,9 @@ void	pain_ting(t_vars *vars)
 	int			color;
 	t_complex	p;
 
-	//t_complex c;
-	//c.x = -0.8;
-	//c.y = 0.156;
+	t_complex c;
+	c.x = -0.123;
+	c.y = 0.745;
 
 	xp = 0;
 	while (xp < vars->window_width)
@@ -27,8 +27,9 @@ void	pain_ting(t_vars *vars)
 		{
 			p.x = ((vars->x1 - vars->x0) / vars->window_width) * xp + vars->x0;
 			p.y = ((vars->y1 - vars->y0) / vars->window_height) * (-yp) + vars->y1;
-			vars->c = p;
-			color = mandelbrot(vars);
+			vars->z = p;
+			vars->c = c;
+			color = julia(vars);
 			my_mlx_pixel_put(vars, xp, yp, color);
 			yp++;
 		}
