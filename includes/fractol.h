@@ -69,6 +69,8 @@ typedef	struct s_vars
 	t_complex der;
 	int		i;
 	int		max_i;
+
+	int	palet[15000];
 }				t_vars;
 
 /* s_vars initialization with window params
@@ -82,6 +84,8 @@ double		sqr_modul(t_complex c);
 /* creating a palette for coloring | color.c */
 int		palette(int	iter, int max_iter);
 double	lin_inter(double c1, double c2, double i);
+int		rgb_to_int(int r, int g, int b);
+void	create_palette(t_vars *vars);
 
 /* pixel color computation for Mandelbrot fractal | mandelbrot.c */
 void	next_der(t_vars *vars);

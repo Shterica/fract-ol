@@ -31,8 +31,8 @@ int	smooth_color(t_vars *vars)
 	
 	log_zn = log(sqr_modul(vars->z)) / 2;
 	nu = log(log_zn / log(2)) / log(2);
-	color1 = palette(vars->i, vars->max_i);
-	color2 = palette(vars->i + 1, vars->max_i);
+	color1 = vars->palet[vars->i];
+	color2 = vars->palet[vars->i + 1];
 	return (lin_inter(color1, color2, fmod(vars->i + 1 - nu, 1)));
 }
 
@@ -43,7 +43,6 @@ int		mandelbrot(t_vars *vars)
 	vars->z = vars->c;
 	vars->der = complex(1, 0);
 	vars->i = 1;
-	vars->max_i = 15000;
 	color = 0x0;
 	while (vars->i < vars->max_i)
 	{
@@ -51,7 +50,7 @@ int		mandelbrot(t_vars *vars)
 			break ;
 		else if (sqr_modul(vars->z) > (1 << 16))
 		{
-			color = smooth_color(vars);
+			color = vars->palet[vars->i];
 			break ;
 		}
 		next_der(vars);
