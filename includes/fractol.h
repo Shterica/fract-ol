@@ -85,9 +85,13 @@ void	init_list(t_vars *vars);
 /* argument parsing | parser.c */
 t_vars	*argument_parser(int ac, char **av);
 t_vars	*ft_error_handler(void);
-int	ft_strcmp(char *s1, char *s2);
 t_vars	*ft_mandelbrot_parser(int ac, char **av);
 t_vars	*ft_julia_parser(int ac, char **av);
+
+/* utilities for parsing | parser_utils.c */
+int	ft_strcmp(char *s1, char *s2);
+double	ft_atod(char *s);
+
 
 /* utilities for complex numbers | complex_utils.c */
 t_complex	complex(double x, double y);

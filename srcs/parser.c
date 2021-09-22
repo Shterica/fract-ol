@@ -2,25 +2,15 @@
 
 t_vars	*ft_error_handler(void)
 {
-	printf("%s\n", "dai argumenti eblan");
+	printf("%s\n", "Error: invalid argument");
+	printf("%s\n", "Please, enter arguments as follows:");
+	printf("%s\n", "For Mandelbrot set enter './fractol mandelbrot'");
+	printf("%s", "For Julia set enter './fractol julia' and two point parameters.");
+	printf("%s\n", " Default parameters for Julia set are: -0.8 0.156");
+	printf("%s\n", "For Collatz fractal enter './fractol collatz'");
 	return (NULL);
 }
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-	int	res;
-
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-			break ;
-		i += 1;
-	}
-	res = s1[i] - s2[i];
-	return (res);
-}
 
 t_vars	*argument_parser(int ac, char **av)
 {
@@ -62,13 +52,13 @@ t_vars	*ft_julia_parser(int ac, char **av)
 {
 	t_vars *vars;
 
-	(void)ac;
-	(void)av;
-
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
 		return (NULL);
-	vars->c = complex(-0.8, 0.156);
+	if (ac == 2)
+		vars->c = complex(ft_atod(av[0]), ft_atod(av[1]));
+	else
+		vars->c = complex(-0.8, 0.156);
 	vars->next_z = &next_z_mandel;
 	vars->next_der = &next_der_mandel;
 	vars->init = &init_julia;

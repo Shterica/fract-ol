@@ -18,6 +18,7 @@ SRCS_FILES	= arrows.c \
 				key_handler.c \
 				complex_utils.c \
 				parser.c \
+				parser_utils.c \
 				zoom.c
 
 SRCS 		= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
