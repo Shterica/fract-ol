@@ -2,8 +2,10 @@
 
 int main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	fractol();
+	t_vars	*fractol;
+
+	fractol = argument_parser(ac, av);
+	if (fractol)
+		ft_fractol(fractol);
 	return (0);
 }

@@ -36,6 +36,22 @@ int	palette(int	iter, int max_iter)
 	return (iter * ((c2 - c1) / max_iter_d));
 }
 
+int	smooth_color(t_vars *vars)
+{
+	double	log_zn;
+	double	nu;
+	int	color1;
+	int	color2;
+	
+	log_zn = log(sqr_modul(vars->z)) / 2.;
+	nu = log(log_zn / log(2.)) / log(2.);
+	color1 = vars->palet[vars->i];
+	//return color1;
+	color2 = vars->palet[vars->i + 1];
+	//return (lin_inter(color1, color2, fmod(vars->i, 1)));
+	return (lin_inter(color1, color2, fmod(vars->i + 1 - nu, 1.)));
+}
+
 double	lin_inter(double c1, double c2, double i)
 {
 	return (c1 + i * (c2 - c1));

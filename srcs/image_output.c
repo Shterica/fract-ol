@@ -15,12 +15,8 @@ void	pain_ting(t_vars *vars)
 	int			color;
 	t_complex	p;
 
-	t_complex c;
-	c.x = -0.8;
-	c.y = 0.156;
-
 	xp = 0;
-	vars->max_i = 15000;
+	vars->max_i = 1000;
 	create_palette(vars);
 	while (xp < vars->window_width)
 	{
@@ -29,9 +25,7 @@ void	pain_ting(t_vars *vars)
 		{
 			p.x = ((vars->x1 - vars->x0) / vars->window_width) * xp + vars->x0;
 			p.y = ((vars->y1 - vars->y0) / vars->window_height) * (-yp) + vars->y1;
-			vars->z = c;
-			vars->c = p;
-			color = mandelbrot(vars);
+			color = vars->point_color(vars, p);
 			my_mlx_pixel_put(vars, xp, yp, color);
 			yp++;
 		}

@@ -15,8 +15,9 @@ SRCS_FILES	= arrows.c \
 				main.c \
 				mandelbrot.c \
 				julia.c \
-				parser.c \
+				key_handler.c \
 				complex_utils.c \
+				parser.c \
 				zoom.c
 
 SRCS 		= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
@@ -27,7 +28,7 @@ CC			= gcc
 
 ifeq ($(OS), Linux)
 	MLX			= ./mlx_linux
-	MLX_FLAGS = -L $(MLX) -l mlx -lXext -lX11
+	MLX_FLAGS = -L $(MLX) -l mlx -lXext -lX11 -lz 
 else
 	MLX			= ./mlx
 	MLX_FLAGS = -L $(MLX) -l mlx -framework OpenGL -framework AppKit
@@ -35,7 +36,7 @@ endif
 
 MLX_INC			= -I $(MLX)
 
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -O3
 
 all: $(NAME)
 	

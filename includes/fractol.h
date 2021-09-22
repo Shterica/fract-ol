@@ -70,12 +70,24 @@ typedef	struct s_vars
 	int		i;
 	int		max_i;
 
-	int	palet[15000];
+	int		(*point_color)(struct s_vars *, t_complex p);
+	void	(*init)(struct s_vars *, t_complex p);
+	void	(*next_z)(struct s_vars *);
+	void	(*next_der)(struct s_vars *);
+
+	int	palet[1000];
 }				t_vars;
 
 /* s_vars initialization with window params
 	and visible area params | list_init.c */
 void	init_list(t_vars *vars);
+
+/* argument parsing | parser.c */
+t_vars	*argument_parser(int ac, char **av);
+t_vars	*ft_error_handler(void);
+int	ft_strcmp(char *s1, char *s2);
+t_vars	*ft_mandelbrot_parser(int ac, char **av);
+t_vars	*ft_julia_parser(int ac, char **av);
 
 /* utilities for complex numbers | complex_utils.c */
 t_complex	complex(double x, double y);
@@ -86,15 +98,15 @@ int		palette(int	iter, int max_iter);
 double	lin_inter(double c1, double c2, double i);
 int		rgb_to_int(int r, int g, int b);
 void	create_palette(t_vars *vars);
+int		smooth_color(t_vars *vars);
 
 /* pixel color computation for Mandelbrot fractal | mandelbrot.c */
-void	next_der(t_vars *vars);
-void	next_z(t_vars *vars);
-int		smooth_color(t_vars *vars);
-int		mandelbrot(t_vars *vars);
+void	next_der_mandel(t_vars *vars);
+void	next_z_mandel(t_vars *vars);
+void	init_mandel(t_vars *vars, t_complex p);
 
 /* pixel color computation for Julia fractal | julia.c */
-int		julia(t_vars *vars);
+void	init_julia(t_vars *vars, t_complex p);
 
 /* handling various events | events.c */
 int	closing(t_vars *vars);
@@ -111,11 +123,12 @@ void	move_up(t_vars *vars);
 void	move_right(t_vars *vars);
 void	move_down(t_vars *vars);
 
-/* parsers of a pressed key/mouse button | parser.c */
-int	button_pars(int keycode, t_vars *vars);
-int	mouse_pars(int button, int x, int y, t_vars *vars);
+/* parsers of a pressed key/mouse button | key_handler.c */
+int	ft_button(int keycode, t_vars *vars);
+int	ft_mouse(int button, int x, int y, t_vars *vars);
 
 /* main func | fractol.c*/
-void	fractol(void);
+void	ft_fractol(t_vars *vars);
+int		fractal_point_color(t_vars *vars, t_complex p);
 
 #endif
