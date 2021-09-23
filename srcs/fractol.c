@@ -24,7 +24,6 @@ int		fractal_point_color(t_vars *vars, t_complex p)
 
 void	ft_fractol(t_vars *vars)
 {
-	init_list(vars);
 	vars->mlx_pnt = mlx_init();
 	vars->window_pnt = mlx_new_window(vars->mlx_pnt, vars->window_width, vars->window_height, "fractol");
 	vars->img = mlx_new_image(vars->mlx_pnt, vars->window_width, vars->window_height);

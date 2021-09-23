@@ -1,5 +1,15 @@
 #include "fractol.h"
 
+void	init_vars_mandel(t_vars *vars)
+{
+	vars->x0 = vars->c.x - 0.0002;
+	vars->x1 = vars->c.x + 0.0002;
+	vars->y0 = vars->c.y - 0.00015;
+	vars->y1 = vars->c.y + 0.00015;
+	vars->window_width = 240 * 4;
+	vars->window_height = 240 * 3;
+}
+
 void	next_der_mandel(t_vars *vars)
 {
 	t_complex new_der;

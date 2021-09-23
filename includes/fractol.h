@@ -80,7 +80,7 @@ typedef	struct s_vars
 
 /* s_vars initialization with window params
 	and visible area params | list_init.c */
-void	init_list(t_vars *vars);
+void	init_vars_default(t_vars *vars);
 
 /* argument parsing | parser.c */
 t_vars	*argument_parser(int ac, char **av);
@@ -108,9 +108,11 @@ int		smooth_color(t_vars *vars);
 void	next_der_mandel(t_vars *vars);
 void	next_z_mandel(t_vars *vars);
 void	init_mandel(t_vars *vars, t_complex p);
+void	init_vars_mandel(t_vars *vars);
 
 /* pixel color computation for Julia fractal | julia.c */
 void	init_julia(t_vars *vars, t_complex p);
+void	init_vars_julia(t_vars *vars);
 
 /* handling various events | events.c */
 int	closing(t_vars *vars);
