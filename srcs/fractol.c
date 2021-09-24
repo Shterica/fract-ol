@@ -12,7 +12,7 @@ int		fractal_point_color(t_vars *vars, t_complex p)
 			break ;
 		else if (sqr_modul(vars->z) > (1 << 16))
 		{
-			color = vars->palet[vars->i];
+			color = vars->palet[(vars->i * 10) % 1000];
 			break ;
 		}
 		vars->next_der(vars);

@@ -16,8 +16,6 @@ void	pain_ting(t_vars *vars)
 	t_complex	p;
 
 	xp = 0;
-	vars->max_i = 1000;
-	create_palette(vars);
 	while (xp < vars->window_width)
 	{
 		yp = 0;

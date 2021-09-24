@@ -11,14 +11,15 @@ SRCS_FILES	= arrows.c \
 				events.c \
 				fractol.c \
 				image_output.c \
-				list_utils.c \
 				main.c \
 				mandelbrot.c \
 				julia.c \
 				key_handler.c \
 				complex_utils.c \
+				complex_utils2.c \
 				parser.c \
 				parser_utils.c \
+				collatz.c \
 				zoom.c
 
 SRCS 		= $(addprefix $(SRCS_PATH), $(SRCS_FILES))

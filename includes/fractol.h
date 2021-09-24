@@ -7,6 +7,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+# define PI 3.14159265
+
 /*
 	Structure s_complex
 	-------------------
@@ -87,15 +89,20 @@ t_vars	*argument_parser(int ac, char **av);
 t_vars	*ft_error_handler(void);
 t_vars	*ft_mandelbrot_parser(int ac, char **av);
 t_vars	*ft_julia_parser(int ac, char **av);
+t_vars	*ft_collatz_parser(int ac, char **av);
 
 /* utilities for parsing | parser_utils.c */
 int	ft_strcmp(char *s1, char *s2);
 double	ft_atod(char *s);
 
-
-/* utilities for complex numbers | complex_utils.c */
+/* utilities for complex numbers | complex_utils.c complex_utils2.c*/
 t_complex	complex(double x, double y);
 double		sqr_modul(t_complex c);
+t_complex		c_mult(t_complex a, t_complex b);
+t_complex		c_cos(t_complex c);
+t_complex		c_sub(t_complex a, t_complex b);
+t_complex		c_sin(t_complex c);
+
 
 /* creating a palette for coloring | color.c */
 int		palette(int	iter, int max_iter);
@@ -109,10 +116,17 @@ void	next_der_mandel(t_vars *vars);
 void	next_z_mandel(t_vars *vars);
 void	init_mandel(t_vars *vars, t_complex p);
 void	init_vars_mandel(t_vars *vars);
+void	init_vars_default_mandel(t_vars *vars);
 
 /* pixel color computation for Julia fractal | julia.c */
 void	init_julia(t_vars *vars, t_complex p);
 void	init_vars_julia(t_vars *vars);
+
+/* pixel color computation for Collatz fractal | collatz.c */
+void	init_collatz(t_vars *vars, t_complex p);
+void	next_z_collatz(t_vars *vars);
+void	next_der_collatz(t_vars *vars);
+void	init_vars_default_collatz(t_vars *vars);
 
 /* handling various events | events.c */
 int	closing(t_vars *vars);
