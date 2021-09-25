@@ -4,6 +4,8 @@ OS			= $(shell uname)
 
 SRCS_PATH	= srcs/
 
+OBJS_PATH	= objs/
+
 HEADERS		= -I ./includes
 
 SRCS_FILES	= arrows.c \
@@ -22,9 +24,11 @@ SRCS_FILES	= arrows.c \
 				collatz.c \
 				zoom.c
 
+OBJS_FILES	= $(SRCS_FILES:.c=.o)
+
 SRCS 		= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
 
-OBJS		:= $(SRCS:.c=.o)
+OBJS		:= $(addprefix $(OBJS_PATH), $(OBJS_FILES))
 
 CC			= gcc
 
@@ -47,7 +51,7 @@ all: $(NAME)
 $(NAME): $(OBJS) 
 	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
 
-$(SRCS_PATH)%.o: $(SRCS_PATH)%.c $(MLX_NAME)
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(MLX_NAME)
 	$(CC) $(CFLAGS) $(MLX_INC) $(HEADERS) -o $@ -c $<
 
 $(MLX_NAME):
