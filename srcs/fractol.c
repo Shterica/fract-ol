@@ -1,5 +1,27 @@
 #include "fractol.h"
 
+int		normal_map_color(t_vars *vars)
+{
+	double h2;
+	double phi;
+	t_complex v;
+	t_complex u;
+	double abs_u;
+	double t;
+
+	h2 = 1.5;
+	phi = 45 * 2 * PI / 360;
+	v = complex(cos(phi), sin(phi));
+	u = c_div(vars->z, vars->der);
+	abs_u = sqrt(sqr_modul(u));
+	u = complex(u.x / abs_u, u.y / abs_u);
+	t = u.x * v.x + u.y * v.y + h2;
+	t = t / (1 + h2);
+	if (t < 0)
+		t = 0;
+	return (rgb_to_int(t * 255, t * vars->color_offset[vars->color_id], t * 255));
+}
+
 int		fractal_point_color(t_vars *vars, t_complex p)
 {
 	int color;
@@ -13,8 +35,10 @@ int		fractal_point_color(t_vars *vars, t_complex p)
 		else if (sqr_modul(vars->z) > (1 << 16))
 		{
 			vars->i = vars->i + vars->color_offset[vars->color_id];
-			color = smooth_color(vars);
-			//color = vars->palet[vars->i];
+			if (vars->color_id >= 4)
+				color = normal_map_color(vars);
+			else
+				color = smooth_color(vars);
 			break ;
 		}
 		vars->next_der(vars);

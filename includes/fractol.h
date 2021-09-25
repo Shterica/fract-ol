@@ -108,6 +108,7 @@ t_complex		c_mult(t_complex a, t_complex b);
 t_complex		c_cos(t_complex c);
 t_complex		c_sub(t_complex a, t_complex b);
 t_complex		c_sin(t_complex c);
+t_complex	c_div(t_complex a, t_complex b);
 
 
 /* creating a palette for coloring | color.c */
@@ -159,5 +160,6 @@ int	ft_mouse(int button, int x, int y, t_vars *vars);
 /* main func | fractol.c*/
 void	ft_fractol(t_vars *vars);
 int		fractal_point_color(t_vars *vars, t_complex p);
+int		normal_map_color(t_vars *vars);
 
 #endif

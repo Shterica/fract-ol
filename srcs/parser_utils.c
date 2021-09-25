@@ -67,6 +67,6 @@ void	init_common_vars(t_vars *vars)
 	vars->color_offset[1] = -777;
 	vars->color_offset[2] = 302;
 	vars->color_offset[3] = 110;
-	vars->color_offset[4] = 666;
-	vars->color_offset[5] = -1337;
+	vars->color_offset[4] = 255;
+	vars->color_offset[5] = 0;
 }
