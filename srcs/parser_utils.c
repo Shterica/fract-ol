@@ -53,3 +53,20 @@ double	ft_atod(char *s)
 		res *= -1;
 	return (res);
 }
+
+void	init_common_vars(t_vars *vars)
+{
+	vars->color_id = 0;
+	vars->set_color[0] = 0x0;
+	vars->set_color[1] = 0xC70039;
+	vars->set_color[2] = 0x112336;
+	vars->set_color[3] = 0x1B6E91;
+	vars->set_color[4] = 0x0;
+	vars->set_color[5] = 0x0;
+	vars->color_offset[0] = 0;
+	vars->color_offset[1] = -777;
+	vars->color_offset[2] = 302;
+	vars->color_offset[3] = 110;
+	vars->color_offset[4] = 666;
+	vars->color_offset[5] = -1337;
+}

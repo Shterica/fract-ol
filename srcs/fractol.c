@@ -5,14 +5,16 @@ int		fractal_point_color(t_vars *vars, t_complex p)
 	int color;
 	
 	vars->init(vars, p);
-	color = 0x0;
+	color = vars->set_color[vars->color_id];
 	while (vars->i < vars->max_i)
 	{
 		if (sqr_modul(vars->der) < 0.00002)
 			break ;
 		else if (sqr_modul(vars->z) > (1 << 16))
 		{
-			color = vars->palet[(vars->i * 10) % 1000];
+			vars->i = vars->i + vars->color_offset[vars->color_id];
+			color = smooth_color(vars);
+			//color = vars->palet[vars->i];
 			break ;
 		}
 		vars->next_der(vars);

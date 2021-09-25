@@ -30,11 +30,13 @@ CC			= gcc
 
 ifeq ($(OS), Linux)
 	MLX			= ./mlx_linux
-	MLX_FLAGS = -L $(MLX) -l mlx -lXext -lX11 -lz 
+	MLX_FLAGS = -L $(MLX) -l mlx -lXext -lX11 -lz
 else
 	MLX			= ./mlx
 	MLX_FLAGS = -L $(MLX) -l mlx -framework OpenGL -framework AppKit
 endif
+
+MLX_NAME	= $(MLX)/libmlx.a
 
 MLX_INC			= -I $(MLX)
 
@@ -45,10 +47,10 @@ all: $(NAME)
 $(NAME): $(OBJS) 
 	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
 
-$(SRCS_PATH)%.o: $(SRCS_PATH)%.c mlxmake
+$(SRCS_PATH)%.o: $(SRCS_PATH)%.c $(MLX_NAME)
 	$(CC) $(CFLAGS) $(MLX_INC) $(HEADERS) -o $@ -c $<
 
-mlxmake:
+$(MLX_NAME):
 	make -C $(MLX)
 
 clean: 

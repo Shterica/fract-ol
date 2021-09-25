@@ -33,6 +33,7 @@ void	init_vars_default_collatz(t_vars *vars)
 	vars->window_width = 240 * 4;
 	vars->window_height = 240 * 3;
 	vars->max_i = 300;
+	vars->col_hz = 2;
 	create_palette(vars);
 }
 

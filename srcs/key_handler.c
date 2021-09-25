@@ -13,6 +13,13 @@ int	ft_button(int keycode, t_vars *vars)
 		move_right(vars);
 	else if (keycode == K_DOWN_ARROW)
 		move_down(vars);
+	else if (keycode == K_PLUS)
+		color_shift_up(vars);
+	else if (keycode == K_MINUS)
+		color_shift_down(vars);
+	else if (keycode == K_R)
+		ft_reset(vars);
+	//printf("%d\n", keycode);
 	return (0);
 }
 

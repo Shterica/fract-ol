@@ -40,16 +40,18 @@ int	smooth_color(t_vars *vars)
 {
 	double	log_zn;
 	double	nu;
-	int	color1;
-	int	color2;
+	double x;
+	int red;
+	int green;
+	int blue;
 	
 	log_zn = log(sqr_modul(vars->z)) / 2.;
 	nu = log(log_zn / log(2.)) / log(2.);
-	color1 = vars->palet[vars->i];
-	//return color1;
-	color2 = vars->palet[vars->i + 1];
-	//return (lin_inter(color1, color2, fmod(vars->i, 1)));
-	return (lin_inter(color1, color2, fmod(vars->i + 1 - nu, 1.)));
+	x = vars->i + 1 - nu;
+	red = (int)(128.0 + 128 * sin(3.1415 * x / (16.0 * vars->col_hz)));
+	green = (int)(128.0 + 128 * sin(3.1415 * x / (32.0 * vars->col_hz)));
+	blue = (int)(128.0 + 128 * sin(3.1415 * x / (64.0 * vars->col_hz)));
+	return (rgb_to_int(red, green, blue));
 }
 
 double	lin_inter(double c1, double c2, double i)

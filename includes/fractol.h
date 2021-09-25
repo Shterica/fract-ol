@@ -77,6 +77,11 @@ typedef	struct s_vars
 	void	(*next_z)(struct s_vars *);
 	void	(*next_der)(struct s_vars *);
 
+	int		col_hz;
+	int		set_color[6];
+	int		color_offset[6];
+	int		color_id;
+
 	int	palet[1000];
 }				t_vars;
 
@@ -94,6 +99,7 @@ t_vars	*ft_collatz_parser(int ac, char **av);
 /* utilities for parsing | parser_utils.c */
 int	ft_strcmp(char *s1, char *s2);
 double	ft_atod(char *s);
+void	init_common_vars(t_vars *vars);
 
 /* utilities for complex numbers | complex_utils.c complex_utils2.c*/
 t_complex	complex(double x, double y);
@@ -130,6 +136,9 @@ void	init_vars_default_collatz(t_vars *vars);
 
 /* handling various events | events.c */
 int	closing(t_vars *vars);
+void color_shift_down(t_vars *vars);
+void  color_shift_up(t_vars *vars);
+void	ft_reset(t_vars *vars);
 
 /* painting and output of a fractal image | image_output.c */
 void	pain_ting(t_vars *vars);

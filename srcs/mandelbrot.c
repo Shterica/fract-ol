@@ -8,6 +8,9 @@ void	init_vars_mandel(t_vars *vars)
 	vars->y1 = vars->c.y + 0.00015;
 	vars->window_width = 240 * 4;
 	vars->window_height = 240 * 3;
+	vars->max_i = 1000;
+	vars->col_hz = 1;
+	create_palette(vars);
 }
 
 void	init_vars_default_mandel(t_vars *vars)
@@ -19,6 +22,7 @@ void	init_vars_default_mandel(t_vars *vars)
 	vars->window_width = 240 * 4;
 	vars->window_height = 240 * 3;
 	vars->max_i = 1000;
+	vars->col_hz = 1;
 	create_palette(vars);
 }
 

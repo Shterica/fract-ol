@@ -8,7 +8,8 @@ void	init_vars_julia(t_vars *vars)
 	vars->y1 = 1.5;
 	vars->window_width = 240 * 4;
 	vars->window_height = 240 * 3;
-	vars->max_i = 1000;	
+	vars->max_i = 1000;
+	vars->col_hz = 3;
 	create_palette(vars);
 }
 

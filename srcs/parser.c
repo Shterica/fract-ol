@@ -7,7 +7,7 @@ t_vars	*ft_error_handler(void)
 	printf("%s", "For Mandelbrot set enter './fractol mandelbrot'.");
 	printf("%s\n", " Optionally you can enter parameters for a desired point.");
 	printf("%s", "For Julia set enter './fractol julia' and two point parameters.");
-	printf("%s\n", " Default parameters for Julia set are: -0.8 0.156.");
+	printf("%s\n", " Default parameters for Julia set are: 0.285, 0.01.");
 	printf("%s\n", "For Collatz fractal enter './fractol collatz'.");
 	return (NULL);
 }
@@ -28,6 +28,7 @@ t_vars	*argument_parser(int ac, char **av)
 		vars = ft_collatz_parser(ac - 2, av + 2);
 	if (!vars)
 		return (ft_error_handler());
+	init_common_vars(vars);
 	return (vars);
 }
 
@@ -59,10 +60,10 @@ t_vars	*ft_julia_parser(int ac, char **av)
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
 		return (NULL);
-	if (ac == 2)
+	if (ac >= 2)
 		vars->c = complex(ft_atod(av[0]), ft_atod(av[1]));
 	else
-		vars->c = complex(-0.8, 0.156);
+		vars->c = complex(0.285, 0.01);
 	vars->next_z = &next_z_mandel;
 	vars->next_der = &next_der_mandel;
 	vars->init = &init_julia;

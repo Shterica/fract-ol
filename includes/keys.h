@@ -9,6 +9,7 @@
 #  define K_DOWN_ARROW 65364
 #  define K_PLUS 61
 #  define K_MINUS 45
+#  define K_R 114
 # else
 #  define K_ESC 53
 #  define K_LEFT_ARROW 123
