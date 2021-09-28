@@ -10,14 +10,14 @@ int	closing(t_vars *vars)
 	exit(0);
 }
 
-void  color_shift_up(t_vars *vars)
+void	color_shift_up(t_vars *vars)
 {
 	vars->color_id += 1;
 	vars->color_id %= 6;
 	pain_ting(vars);
 }
 
-void color_shift_down(t_vars *vars)
+void	color_shift_down(t_vars *vars)
 {
 	vars->color_id -= 1;
 	if (vars->color_id == -1)

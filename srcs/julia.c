@@ -13,7 +13,6 @@ void	init_vars_julia(t_vars *vars)
 	create_palette(vars);
 }
 
-
 void	init_julia(t_vars *vars, t_complex p)
 {
 	vars->z = p;

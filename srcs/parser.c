@@ -6,16 +6,16 @@ t_vars	*ft_error_handler(void)
 	printf("%s\n", "Please, enter arguments as follows:");
 	printf("%s", "For Mandelbrot set enter './fractol mandelbrot'.");
 	printf("%s\n", " Optionally you can enter parameters for a desired point.");
-	printf("%s", "For Julia set enter './fractol julia' and two point parameters.");
+	printf("For Julia set enter './fractol julia' ");
+	printf("and two point parameters.");
 	printf("%s\n", " Default parameters for Julia set are: 0.285, 0.01.");
 	printf("%s\n", "For Collatz fractal enter './fractol collatz'.");
 	return (NULL);
 }
 
-
 t_vars	*argument_parser(int ac, char **av)
 {
-	t_vars *vars;
+	t_vars	*vars;
 
 	vars = NULL;
 	if (ac < 2)
@@ -34,7 +34,7 @@ t_vars	*argument_parser(int ac, char **av)
 
 t_vars	*ft_mandelbrot_parser(int ac, char **av)
 {
-	t_vars *vars;
+	t_vars	*vars;
 
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
@@ -55,7 +55,7 @@ t_vars	*ft_mandelbrot_parser(int ac, char **av)
 
 t_vars	*ft_julia_parser(int ac, char **av)
 {
-	t_vars *vars;
+	t_vars	*vars;
 
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
@@ -74,8 +74,8 @@ t_vars	*ft_julia_parser(int ac, char **av)
 
 t_vars	*ft_collatz_parser(int ac, char **av)
 {
-	t_vars *vars;
-	
+	t_vars	*vars;
+
 	(void)ac;
 	(void)av;
 	vars = (t_vars *)malloc(sizeof(t_vars));

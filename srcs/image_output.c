@@ -22,7 +22,8 @@ void	pain_ting(t_vars *vars)
 		while (yp < vars->window_height)
 		{
 			p.x = ((vars->x1 - vars->x0) / vars->window_width) * xp + vars->x0;
-			p.y = ((vars->y1 - vars->y0) / vars->window_height) * (-yp) + vars->y1;
+			p.y = ((vars->y1 - vars->y0) / vars->window_height) \
+			 * (-yp) + vars->y1;
 			color = vars->point_color(vars, p);
 			my_mlx_pixel_put(vars, xp, yp, color);
 			yp++;

@@ -7,13 +7,12 @@ int	rgb_to_int(int r, int g, int b)
 
 void	create_palette(t_vars *vars)
 {
-	int x;
-	int red;
-	int green;
-	int blue;
+	int	x;
+	int	red;
+	int	green;
+	int	blue;
 
 	x = 0;
-
 	while (x < vars->max_i)
 	{
 		red = (int)(128.0 + 128 * sin(3.1415 * x / 16.0));
@@ -24,7 +23,7 @@ void	create_palette(t_vars *vars)
 	}
 }
 
-int	palette(int	iter, int max_iter)
+int	palette(int iter, int max_iter)
 {
 	int		c1;
 	int		c2;
@@ -39,15 +38,13 @@ int	palette(int	iter, int max_iter)
 int	smooth_color(t_vars *vars)
 {
 	double	log_zn;
-	double	nu;
-	double x;
-	int red;
-	int green;
-	int blue;
-	
+	double	x;
+	int		red;
+	int		green;
+	int		blue;
+
 	log_zn = log(sqr_modul(vars->z)) / 2.;
-	nu = log(log_zn / log(2.)) / log(2.);
-	x = vars->i + 1 - nu;
+	x = vars->i + 1 - (log(log_zn / log(2.)) / log(2.));
 	red = (int)(128.0 + 128 * sin(3.1415 * x / (16.0 * vars->col_hz)));
 	green = (int)(128.0 + 128 * sin(3.1415 * x / (32.0 * vars->col_hz)));
 	blue = (int)(128.0 + 128 * sin(3.1415 * x / (64.0 * vars->col_hz)));

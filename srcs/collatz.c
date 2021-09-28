@@ -2,9 +2,9 @@
 
 void	next_der_collatz(t_vars *vars)
 {
-	t_complex first;
-	t_complex sinus;
-	t_complex cosinus;
+	t_complex	first;
+	t_complex	sinus;
+	t_complex	cosinus;
 
 	first = complex(5 * vars->z.x + 2, 5 * vars->z.y);
 	first = complex(first.x * PI, first.y * PI);
@@ -39,9 +39,9 @@ void	init_vars_default_collatz(t_vars *vars)
 
 void	next_z_collatz(t_vars *vars)
 {
-	t_complex first;
-	t_complex second;
-	t_complex cosinus;
+	t_complex	first;
+	t_complex	second;
+	t_complex	cosinus;
 
 	first = complex(7 * vars->z.x + 2, 7 * vars->z.y);
 	second = complex(5 * vars->z.x + 2, 5 * vars->z.y);

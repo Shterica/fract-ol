@@ -1,17 +1,15 @@
 #include "fractol.h"
 
-int		normal_map_color(t_vars *vars)
+int	normal_map_color(t_vars *vars)
 {
-	double h2;
-	double phi;
-	t_complex v;
-	t_complex u;
-	double abs_u;
-	double t;
+	double		h2;
+	t_complex	v;
+	t_complex	u;
+	double		abs_u;
+	double		t;
 
 	h2 = 1.5;
-	phi = 45 * 2 * PI / 360;
-	v = complex(cos(phi), sin(phi));
+	v = complex(cos(90 * PI / 360), sin(90 * PI / 360));
 	u = c_div(vars->z, vars->der);
 	abs_u = sqrt(sqr_modul(u));
 	u = complex(u.x / abs_u, u.y / abs_u);
@@ -19,13 +17,14 @@ int		normal_map_color(t_vars *vars)
 	t = t / (1 + h2);
 	if (t < 0)
 		t = 0;
-	return (rgb_to_int(t * 255, t * vars->color_offset[vars->color_id], t * 255));
+	return (rgb_to_int(t * 255, t * vars->color_offset[vars->color_id], \
+	t * 255));
 }
 
-int		fractal_point_color(t_vars *vars, t_complex p)
+int	fractal_point_color(t_vars *vars, t_complex p)
 {
-	int color;
-	
+	int	color;
+
 	vars->init(vars, p);
 	color = vars->set_color[vars->color_id];
 	while (vars->i < vars->max_i)
@@ -51,11 +50,14 @@ int		fractal_point_color(t_vars *vars, t_complex p)
 void	ft_fractol(t_vars *vars)
 {
 	vars->mlx_pnt = mlx_init();
-	vars->window_pnt = mlx_new_window(vars->mlx_pnt, vars->window_width, vars->window_height, "fractol");
-	vars->img = mlx_new_image(vars->mlx_pnt, vars->window_width, vars->window_height);
-	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel, &vars->line_length, &vars->endian);
+	vars->window_pnt = mlx_new_window(vars->mlx_pnt, vars->window_width, \
+	vars->window_height, "fractol");
+	vars->img = mlx_new_image(vars->mlx_pnt, vars->window_width, \
+	vars->window_height);
+	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel, \
+	&vars->line_length, &vars->endian);
 	pain_ting(vars);
-	mlx_hook(vars->window_pnt, 17, 1L<<3, closing, vars);
+	mlx_hook(vars->window_pnt, 17, 1L << 3, closing, vars);
 	mlx_key_hook(vars->window_pnt, ft_button, vars);
 	mlx_mouse_hook(vars->window_pnt, ft_mouse, vars);
 	mlx_loop(vars->mlx_pnt);

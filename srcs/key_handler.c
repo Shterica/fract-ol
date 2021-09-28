@@ -1,5 +1,4 @@
 #include "fractol.h"
-#include "keys.h"
 
 int	ft_button(int keycode, t_vars *vars)
 {
@@ -19,7 +18,6 @@ int	ft_button(int keycode, t_vars *vars)
 		color_shift_down(vars);
 	else if (keycode == K_R)
 		ft_reset(vars);
-	//printf("%d\n", keycode);
 	return (0);
 }
 

@@ -28,7 +28,7 @@ void	init_vars_default_mandel(t_vars *vars)
 
 void	next_der_mandel(t_vars *vars)
 {
-	t_complex new_der;
+	t_complex	new_der;
 
 	new_der.x = 2 * (vars->z.x * vars->der.x - vars->z.y * vars->der.y);
 	new_der.y = 2 * (vars->z.x * vars->der.y + vars->z.y * vars->der.x);
