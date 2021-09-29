@@ -51,14 +51,17 @@ all: $(NAME)
 $(NAME): $(OBJS) 
 	$(CC) $(OBJS) $(MLX_FLAGS) -lm -o $(NAME)
 
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(MLX_NAME)
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(MLX_NAME) objs
 	$(CC) $(CFLAGS) $(MLX_INC) $(HEADERS) -o $@ -c $<
 
 $(MLX_NAME):
 	make -C $(MLX)
 
+objs:
+	mkdir $(OBJS_PATH)
+
 clean: 
-	rm -rf $(OBJS)
+	rm -rf $(OBJS_PATH)
 	make -C $(MLX) clean
 
 fclean: clean
